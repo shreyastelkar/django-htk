@@ -10,6 +10,9 @@ class Forum(models.Model):
     """Forum represents a message forum
     """
     name = models.CharField(max_length=64)
+    club = models.ForeignKey(
+        Club, related_name='club', on_delete=models.CASCADE
+    )
     description = models.CharField(max_length=128, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -85,6 +88,13 @@ class ForumThread(models.Model):
 class ForumMessage(models.Model):
     thread = models.ForeignKey(ForumThread, related_name='messages')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='messages')
+    reply_to = models.ForeignKey(
+        'self',
+        related_name='replies',
+        blank='True',
+        null='True',
+        on_delete=models.CASCADE,
+    )
     text = models.TextField(max_length=3000)
     timestamp = models.DateTimeField(auto_now=True)
     tags = models.ManyToManyField('ForumTag', blank=True)

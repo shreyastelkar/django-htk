@@ -220,9 +220,9 @@ class BaseAbstractOrganizationMember(HtkBaseModel):
 
     def __str__(self):
         value = (
-            '{organization_name} Member - {member_name} (member_email)'.format(
+            '{organization_name} Member - {member_name} {member_email}'.format(
                 organization_name=self.organization.name,
-                member_name=self.user.profile.get_full_name(),
+                member_name=self.user.get_full_name(),
                 member_email=self.user.email,
             )
         )
