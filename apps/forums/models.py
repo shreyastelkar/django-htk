@@ -88,8 +88,8 @@ class ForumMessage(models.Model):
     reply_to = models.ForeignKey(
         'self',
         related_name='replies',
-        blank='True',
-        null='True',
+        blank=True,
+        null=True,
         on_delete=models.CASCADE,
     )
     text = models.TextField(max_length=3000)
